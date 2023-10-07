@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Producto</title>
-</head>
-<body>
+<x-layouts.adminp title="Editar Producto">
     <h1>Editar Producto</h1>
 
     <form action="{{ route('Producto.update', $producto->Id_producto) }}" method="post">
@@ -32,5 +25,5 @@
     </form>
 
     <a href="{{ route('Producto.index') }}">Volver al listado de productos</a>
-</body>
-</html>
+
+</x-layouts.adminp>

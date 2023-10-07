@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Crear Vendedor</title>
-</head>
-<body>
+<x-layouts.adminp title="Crear Vendedor">
     <h1>Crear Vendedor</h1>
 
     <form action="{{ route('Vendedor.store') }}" method="post">
@@ -26,15 +21,14 @@
 
         <input type="submit" value="Crear Vendedor">
     </form>
-</body>
-</html>
-@if (session('success'))
+
+    @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
-@endif
+    @endif
 
-@if ($errors->any())
+    @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
             @foreach ($errors->all() as $error)
@@ -42,4 +36,5 @@
             @endforeach
         </ul>
     </div>
-@endif
+    @endif
+</x-layouts.adminp>

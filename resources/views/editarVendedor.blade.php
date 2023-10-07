@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Vendedor</title>
-</head>
-<body>
+<x-layouts.adminp title="Editar Vendedor">
     <h1>Editar Vendedor</h1>
 
     <form action="{{ route('Vendedor.update', $vendedor->id_vendedor) }}" method="post">
@@ -31,6 +24,5 @@
         <input type="submit" value="Editar Vendedor">
     </form>
 
-    <a href="{{ route('Vendedor.index') }}">Volver al listado de productos</a>
-</body>
-</html>
+    <a href="{{ route('Vendedor.index') }}">Volver al listado de vendedores</a>
+</x-layouts.adminp>

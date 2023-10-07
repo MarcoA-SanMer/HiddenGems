@@ -43,10 +43,13 @@ class ProductoController extends Controller
         $producto->Descripción = $request->descripcion;
         $producto->Categoria = $request->categoria;
     
-        $producto->save();
-    
-        return redirect()->route('Producto.create')->with('success', 'Producto creado exitosamente!');
-    
+        if ($producto->save()) {
+            // La operación de guardado fue exitosa, redirigir a Producto.index
+            return redirect()->route('Producto.index')->with('success', 'Producto creado exitosamente!');
+        } else {
+            // La operación de guardado falló, redirigir a Producto.create
+            return redirect()->route('Producto.create')->withInput()->withErrors('Ha ocurrido un error en la operación.');
+        }
     }
 
     /**

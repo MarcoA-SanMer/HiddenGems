@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ver Producto</title>
-</head>
-<body>
+<x-layouts.adminp title="Ver Producto">
     <h1>Ver Producto</h1>
 
     <p><strong>Nombre:</strong> {{ $producto->Nombre }}</p>
@@ -14,5 +7,5 @@
     <p><strong>Categoría:</strong> {{ $producto->Categoria }}</p>
 
     <a href="{{ route('Producto.index') }}">Volver al listado de productos</a>
-</body>
-</html>
+
+</x-layouts.adminp>

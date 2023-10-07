@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Crear Comprador</title>
-</head>
-<body>
+<x-layouts.adminp title="Crear Comprador">
     <h1>Crear Comprador</h1>
 
     <form action="{{ route('Comprador.store') }}" method="post">
@@ -20,20 +15,19 @@
 
         <input type="submit" value="Crear Comprador">
     </form>
-</body>
-</html>
-@if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+</x-layouts.adminp>
