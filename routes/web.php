@@ -2,6 +2,7 @@
 //Necesario para que detecte el controllador
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\CompradorController;
+use App\Http\Controllers\VendedorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +22,8 @@ Route::get('/', function () {
 
 Route::resource('Producto', ProductoController::class);
 Route::resource('Comprador', CompradorController::class);
+Route::resource('Vendedor', VendedorController::class);
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
