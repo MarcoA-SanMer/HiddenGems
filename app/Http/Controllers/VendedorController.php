@@ -76,7 +76,6 @@ class VendedorController extends Controller
         $request->validate([
             'nombreC' => 'required',
             'nombreU' => 'required',
-            'pass' => 'required',
             'marca' => 'required',
             'cal' => 'required'
         ]);
