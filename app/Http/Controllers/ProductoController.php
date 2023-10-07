@@ -34,15 +34,20 @@ class ProductoController extends Controller
             'precio' => 'required',
             'descripcion' => 'required',
             'categoria' => 'required',
+        ], [
+            'nombre.required' => 'El campo Nombre es obligatorio.',
+            'precio.required' => 'El campo Precio es obligatorio.',
+            'descripcion.required' => 'El campo Descripción es obligatorio.',
+            'categoria.required' => 'El campo Categoría es obligatorio.',
         ]);
-    
+
         $producto = new Producto;
-    
+
         $producto->Nombre = $request->nombre;
         $producto->Precio = $request->precio;
         $producto->Descripción = $request->descripcion;
         $producto->Categoria = $request->categoria;
-    
+
         if ($producto->save()) {
             // La operación de guardado fue exitosa, redirigir a Producto.index
             return redirect()->route('Producto.index')->with('success', 'Producto creado exitosamente!');
@@ -51,6 +56,7 @@ class ProductoController extends Controller
             return redirect()->route('Producto.create')->withInput()->withErrors('Ha ocurrido un error en la operación.');
         }
     }
+
 
     /**
      * Display the specified resource.
@@ -80,6 +86,11 @@ class ProductoController extends Controller
             'precio' => 'required',
             'descripcion' => 'required',
             'categoria' => 'required',
+        ], [
+            'nombre.required' => 'El campo Nombre es obligatorio.',
+            'precio.required' => 'El campo Precio es obligatorio.',
+            'descripcion.required' => 'El campo Descripción es obligatorio.',
+            'categoria.required' => 'El campo Categoría es obligatorio.',
         ]);
     
         $producto = Producto::find($id);

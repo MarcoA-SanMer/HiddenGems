@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comprador;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class CompradorController extends Controller
 {
@@ -31,20 +32,26 @@ class CompradorController extends Controller
     {
         $request->validate([
             'nombreco' => 'required',
-            'nombreus' => 'required',
+            'nombreus' => 'required|unique:compradors,Nombre_usuario', // Añade la regla unique para el nombre de usuario en la tabla 'compradores'
             'contrasena' => 'required',
+        ], [
+            'nombreco.required' => 'El campo Nombre Completo es obligatorio.',
+            'nombreus.required' => 'El campo Nombre de Usuario es obligatorio.',
+            'nombreus.unique' => 'El nombre de usuario ya está registrado.', // Mensaje de error para nombre de usuario duplicado
+            'contrasena.required' => 'El campo Contraseña es obligatorio.',
         ]);
     
         $comprador = new Comprador;
     
         $comprador->Nombre_completo = $request->nombreco;
         $comprador->Nombre_usuario = $request->nombreus;
-        $comprador->Contrasena = $request->contrasena;
+        $comprador->Contrasena = Hash::make($request->contrasena);
     
         $comprador->save();
     
         return redirect()->route('Comprador.create')->with('success', 'Comprador creado exitosamente!');
     }
+    
 
     /**
      * Display the specified resource.
@@ -68,23 +75,31 @@ class CompradorController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
-    {
-        $request->validate([
-            'nombreco' => 'required',
-            'nombreus' => 'required',
-            'contrasena' => '',
-        ]);
-    
-        $comprador = Comprador::find($id);
-    
-        $comprador->Nombre_completo = $request->nombreco;
-        $comprador->Nombre_usuario = $request->nombreus;
-        $comprador->Contrasena = $request->contrasena;
-    
-        $comprador->save();
-    
-        return redirect()->route('Comprador.index')->with('success', 'Comprador actualizado exitosamente!');
-    }
+        {
+            $request->validate([
+                'nombreco' => 'required',
+                'nombreus' => 'required|unique:compradors,Nombre_usuario,' . $id . ',Id_comprador', // Añade el campo de identificación
+            ], [
+                'nombreco.required' => 'El campo Nombre Completo es obligatorio.',
+                'nombreus.required' => 'El campo Nombre de Usuario es obligatorio.',
+                'nombreus.unique' => 'El nombre de usuario ya está registrado.', // Mensaje de error para nombre de usuario duplicado
+            ]);
+
+            $comprador = Comprador::find($id);
+
+            $comprador->Nombre_completo = $request->nombreco;
+            $comprador->Nombre_usuario = $request->nombreus;
+
+            // Verifica si se proporcionó una nueva contraseña
+            if ($request->has('contrasena') && !empty($request->contrasena)) {
+                $comprador->Contrasena = Hash::make($request->contrasena);
+            }
+
+            $comprador->save();
+
+            return redirect()->route('Comprador.index')->with('success', 'Comprador actualizado exitosamente!');
+        }
+
 
     /**
      * Remove the specified resource from storage.
