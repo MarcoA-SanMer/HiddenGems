@@ -5,19 +5,19 @@
         @csrf
 
         <label for="nombrec">Nombre Completo:</label><br>
-        <input type="text" id="nombreC" name="nombreC"><br>
+        <input type="text" id="nombreC" name="nombreC" value="{{ old('nombreC') }}"><br>
 
         <label for="nombreU">Nombre Usuario:</label><br>
-        <input type="text" id="nombreU" name="nombreU"><br>
+        <input type="text" id="nombreU" name="nombreU" value="{{ old('nombreU') }}"><br>
 
         <label for="pass">Contraseña:</label><br>
-        <input type="password" id="pass" name="pass"><br>
+        <input type="password" id="pass" name="pass" value="{{ old('pass') }}"><br>
 
         <label for="marca">Marca:</label><br>
-        <input type="text" id="marca" name="marca"><br><br>
+        <input type="text" id="marca" name="marca" value="{{ old('marca') }}"><br><br>
 
         <label for="cal">Calificacion:</label><br>
-        <input type="text" id="cal" name="cal"><br><br>
+        <input type="text" id="cal" name="cal" value="{{ old('cal') }}"><br><br>
 
         <input type="submit" value="Crear Vendedor">
     </form>

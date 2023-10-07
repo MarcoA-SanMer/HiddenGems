@@ -23,7 +23,15 @@
 
         <input type="submit" value="Editar Producto">
     </form>
-
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     <a href="{{ route('Producto.index') }}">Volver al listado de productos</a>
 
 </x-layouts.adminp>
