@@ -61,21 +61,21 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Crear</span>
+                    <span>Administrar</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Crear filas en:</h6>
-                        <a class="collapse-item" href="{{ route('Producto.create') }}">Producto</a>
-                        <a class="collapse-item" href="{{ route('Vendedor.create') }}">Vendedor</a>
-                        <a class="collapse-item" href="{{ route('Comprador.create') }}">Comprador</a>
+                        <a class="collapse-item" href="{{ route('Producto.index') }}">Producto</a>
+                        <a class="collapse-item" href="{{ route('Vendedor.index') }}">Vendedor</a>
+                        <a class="collapse-item" href="{{ route('Comprador.index') }}">Comprador</a>
                     </div>
                 </div>
             </li>
 
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-table"></i>
@@ -89,7 +89,7 @@
                         <a class="collapse-item" href="{{ route('Comprador.index') }}">Comprador</a>
                     </div>
                 </div>
-            </li>
+            </li> --}}
             
 
             <!-- Nav Item - Utilities Collapse Menu -->

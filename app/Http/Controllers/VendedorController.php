@@ -14,7 +14,7 @@ class VendedorController extends Controller
     public function index()
     {   
         $vendedores = Vendedor::all();
-        return view('listadoVendedores',compact('vendedores'));
+        return view('crearVendedor',compact('vendedores'));
         //
     }
 
@@ -23,7 +23,7 @@ class VendedorController extends Controller
      */
     public function create()
     {
-        return view('crearVendedor');
+        #return view('crearVendedor');
     }
 
     /**
@@ -55,7 +55,7 @@ class VendedorController extends Controller
         $vendedor->calificacion = $request->cal;
 
         $vendedor->save();
-        return redirect()->route('Vendedor.create')->with('success', 'Vendedor creado exitosamente!');
+        return redirect()->route('Vendedor.index')->with('success', 'Vendedor creado exitosamente!');
     }
 
     /**

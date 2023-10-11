@@ -1,4 +1,23 @@
 <x-layouts.adminp title="Crear Vendedor">
+
+    <h1>Listado de Vendedores</h1>
+    <ul>
+        @foreach($vendedores as $vendedor)
+        <li>
+            {{$vendedor->nombre_usuario}}
+            <a href="{{ route('Vendedor.show', $vendedor->id_vendedor) }}">Ver</a>
+            <a href="{{ route('Vendedor.edit', $vendedor->id_vendedor) }}">Editar</a>
+            <form action="{{ route('Vendedor.destroy', $vendedor->id_vendedor) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit">Borrar</button>
+        </form>
+        <br>
+        </li>
+        @endforeach
+    </ul>
+
+
     <h1>Crear Vendedor</h1>
 
     <form action="{{ route('Vendedor.store') }}" method="post">

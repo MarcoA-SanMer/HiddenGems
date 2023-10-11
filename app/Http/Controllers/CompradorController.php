@@ -14,7 +14,7 @@ class CompradorController extends Controller
     public function index()
     {
         $compradors = Comprador::all();
-        return view('listadoComprador',compact('compradors'));
+        return view('crearComprador',compact('compradors'));
     }
 
     /**
@@ -49,7 +49,7 @@ class CompradorController extends Controller
     
         $comprador->save();
     
-        return redirect()->route('Comprador.create')->with('success', 'Comprador creado exitosamente!');
+        return redirect()->route('Comprador.index')->with('success', 'Comprador creado exitosamente!');
     }
     
 
