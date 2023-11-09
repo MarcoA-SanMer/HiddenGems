@@ -34,12 +34,12 @@
             <div id="vendedor_fields" style="display: none;">
                 <div class="mt-4">
                     <x-label for="user_nameV" value="{{ __('User Name') }}" />
-                    <x-input id="user_nameV" class="block mt-1 w-full" type="text" name="user_nameV" :value="old('user_nameV')" require/>
+                    <x-input id="user_nameV" class="block mt-1 w-full" type="text" name="user_nameV" :value="old('user_nameV')" required/>
                 </div>
                 <!-- Aquí puedes agregar los demás campos para el vendedor -->
                 <div class="mt-4">
                     <x-label for="brand_name" value="{{ __('Brand Name') }}" />
-                    <x-input id="brand_name" class="block mt-1 w-full" type="text" name="brand_name" :value="old('brand_name')" require/>
+                    <x-input id="brand_name" class="block mt-1 w-full" type="text" name="brand_name" :value="old('brand_name')" required/>
                 </div>
             </div>
 
@@ -48,7 +48,7 @@
                 <!-- Aquí puedes agregar los campos para el comprador -->
                 <div class="mt-4">
                     <x-label for="user_name" value="{{ __('User Name') }} "  />
-                    <x-input id="user_name" class="block mt-1 w-full" type="text" name="user_name" :value="old('user_name')" require />
+                    <x-input id="user_name" class="block mt-1 w-full" type="text" name="user_name" :value="old('user_name')" required />
                 </div>
             </div>
 
