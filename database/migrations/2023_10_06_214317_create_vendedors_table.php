@@ -12,12 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('vendedors', function (Blueprint $table) {
-            $table->id('id_vendedor');
-            $table->string('nombre_completo');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('nombre_usuario')->unique();
-            $table->string('contrasena');
-            $table->string('nombre_marca');
-            $table->decimal('calificacion');
+            $table->string('nombre_marca')->unique();
+            $table->integer('ventas')->default(0);
+            $table->decimal('calificacion')->default(0);
             $table->timestamps();
         });
     }

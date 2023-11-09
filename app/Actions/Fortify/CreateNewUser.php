@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
+use App\Models\vendedor;
+use App\Models\Comprador;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -24,20 +26,37 @@ class CreateNewUser implements CreatesNewUsers
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'user_type' => ['required', 'string', 'max:255'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
+
 
         return DB::transaction(function () use ($input) {
             return tap(User::create([
                 'name' => $input['name'],
                 'email' => $input['email'],
+                'user_type' => $input['user_type'],
                 'password' => Hash::make($input['password']),
-            ]), function (User $user) {
+            ]), function (User $user) use($input){
+
+                if ($input['user_type'] == 'vendedor') {
+                    $vendedor = new vendedor;
+                    $vendedor->nombre_usuario = $input['user_nameV'];
+                    $vendedor->nombre_marca = $input['brand_name'];
+                    $user->vendedor()->save($vendedor);
+                } elseif ($input['user_type'] == 'comprador') {
+                    $comprador = new Comprador;
+                    $comprador->nombre_usuario = $input['user_name'];
+                    $user->comprador()->save($comprador);
+                }
+
                 $this->createTeam($user);
             });
         });
+        
     }
+
 
     /**
      * Create a personal team for the user.
