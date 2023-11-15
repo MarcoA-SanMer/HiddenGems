@@ -20,6 +20,69 @@
             </div>
 
             <div class="mt-4">
+                <x-label for="user_type" value="{{ __('User Type') }}" />
+                <select id="user_type" class="bg-gray-800 text-white block mt-1 w-full rounded p-2" name="user_type" required>
+                    <option value="vendedor">Vendedor</option>
+                    <option value="comprador" selected>Comprador</option>
+                </select>
+            </div>
+
+            <!-- Campos vendedor o comprador -->
+
+
+            <!-- Campos para Vendedor -->
+            <div id="vendedor_fields" style="display: none;">
+                <div class="mt-4">
+                    <x-label for="user_nameV" value="{{ __('User Name') }}" />
+                    <x-input id="user_nameV" class="block mt-1 w-full" type="text" name="user_nameV" :value="old('user_nameV')"/>
+                </div>
+                <!-- Aquí puedes agregar los demás campos para el vendedor -->
+                <div class="mt-4">
+                    <x-label for="brand_name" value="{{ __('Brand Name') }}" />
+                    <x-input id="brand_name" class="block mt-1 w-full" type="text" name="brand_name" :value="old('brand_name')"/>
+                </div>
+            </div>
+
+            <!-- Campos para Comprador -->
+            <div id="comprador_fields" style="display: block;">
+                <!-- Aquí puedes agregar los campos para el comprador -->
+                <div class="mt-4">
+                    <x-label for="user_name" value="{{ __('User Name') }} "  />
+                    <x-input id="user_name" class="block mt-1 w-full" type="text" name="user_name" :value="old('user_name')" required />
+                </div>
+            </div>
+
+            <script>
+                function showFields() {
+                    var userType = document.getElementById("user_type").value;
+                    if (userType == "vendedor") {
+                        document.getElementById("vendedor_fields").style.display = "block";
+                        document.getElementById("comprador_fields").style.display = "none";
+
+                        var nombre_usuarioV = document.getElementById('user_nameV');
+                        var nombre_marca = document.getElementById('brand_name');
+                        var nombre_usuario = document.getElementById('user_name');
+
+                        nombre_usuarioV.setAttribute('required', 'required');
+                        nombre_marca.setAttribute('required', 'required');
+                        nombre_usuario.removeAttribute('required');
+                    } else if (userType == "comprador") {
+                        document.getElementById("vendedor_fields").style.display = "none";
+                        document.getElementById("comprador_fields").style.display = "block";
+
+                        var nombre_usuarioV = document.getElementById('user_nameV');
+                        var nombre_marca = document.getElementById('brand_name');
+                        var nombre_usuario = document.getElementById('user_name');
+
+                        nombre_usuarioV.removeAttribute('required');
+                        nombre_marca.removeAttribute('required');
+                        nombre_usuario.setAttribute('required', 'required');
+                    }
+                }
+                document.getElementById("user_type").addEventListener("change", showFields);
+            </script>
+
+            <div class="mt-4">
                 <x-label for="password" value="{{ __('Password') }}" />
                 <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
             </div>

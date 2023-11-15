@@ -1,3 +1,3 @@
-<x-layouts.adminp>
+<x-layouts.mainLayout>
 
-</x-layouts.adminp>
+</x-layouts.mainLayout>

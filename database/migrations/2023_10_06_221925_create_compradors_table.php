@@ -12,10 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('compradors', function (Blueprint $table) {
-            $table->id("Id_comprador");
-            $table->string('Nombre_completo');
-            $table->string('Nombre_usuario');
-            $table->string('Contrasena');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('nombre_usuario')->unique();
             $table->timestamps();
         });
     }
