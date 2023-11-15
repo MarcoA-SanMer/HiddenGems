@@ -24,10 +24,18 @@
                 <button class="navbar-toggler navbar-toggler-right navbar" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="color: black; border: solid black;">
                     <i class="fas fa-bars"></i>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive" >
-                    <ul class="navbar-nav ms-auto" >
-                        <li class="nav-item"><a class="nav-link" href="#about" style="color: white;"><Strong>Sing in</Strong></a></li>
-                        <li class="nav-item"><a class="nav-link" href="#projects" style="color: white;"><strong>Log in</strong></a></li>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        @if (Route::has('login'))
+                            @auth
+                                <li class="nav-item"><a class="nav-link" href="{{ url('/dashboard') }}" style="color: white;"><strong>Dashboard</strong></a></li>
+                            @else
+                                <li class="nav-item"><a class="nav-link" href="{{ route('login') }}" style="color: white;"><strong>Log in</strong></a></li>
+                                @if (Route::has('register'))
+                                    <li class="nav-item"><a class="nav-link" href="{{ route('register') }}" style="color: white;"><strong>Sign Up</strong></a></li>
+                                @endif
+                            @endauth
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -39,8 +47,14 @@
                     <div class="text-center">
                         <img src="{{ asset('welcomepage/assets/img/diamond.png') }}" alt="" width="200" height="200">
                         <h1 class="mx-auto my-0 text-uppercase " style="background-color: rgb(99, 59, 137);">Hidden Gems</h1>
-                        <h2 class="text-white-50 mx-auto mt-2 mb-5">Buy Quiality at Walmart Price.</h2>
-                        <a class="btn  btn-dark" href="#about">¡Sing In Now!</a>
+                        <h2 class="text-white-50 mx-auto mt-2 mb-5">Quality at Low Cost.</h2>
+                        @auth
+                            <!-- Si el usuario ha iniciado sesión, muestra el botón para ir al dashboard -->
+                            <a class="btn btn-dark" href="{{ url('/dashboard') }}">¡Buy Something Awesome!</a>
+                        @else
+                            <!-- Si el usuario no ha iniciado sesión, muestra el botón para registrarse -->
+                            <a class="btn btn-dark" href="{{ route('register') }}">¡Sign Up Now!</a>
+                        @endauth
 
                     </div>
                 </div>
