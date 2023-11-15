@@ -19,8 +19,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::resource('Producto', ProductoController::class);
+ //                                                   ->middleware('auth'); Para solo verificar que este logeado sin importar el tipo de cuenta
+Route::resource('Producto', ProductoController::class)->middleware('checkUserType:vendedor');//cambiar vendedor a comprador si se desea verificar eso
 Route::resource('Comprador', CompradorController::class);
 Route::resource('Vendedor', VendedorController::class);
 
