@@ -44,7 +44,7 @@ class CreateNewUser implements CreatesNewUsers
                     $vendedor = new vendedor;
                     
                     Validator::make($input, [
-                        'user_nameV' => 'required|string|max:255|unique:vendedors,nombre_usuario',
+                        'user_nameV' => 'required|string|max:255|unique:vendedors,nombre_usuario|unique:compradors,nombre_usuario',
                         'brand_name' => 'required|string|max:255|unique:vendedors,nombre_marca',
                     ], [
                         'user_nameV.required' => 'El campo Nombre de Usuario es obligatorio.',
@@ -66,7 +66,7 @@ class CreateNewUser implements CreatesNewUsers
                     $comprador->nombre_usuario = $input['user_name'];
                     
                     Validator::make($input, [
-                        'user_name' => 'required|string|max:255|unique:compradors,nombre_usuario',
+                        'user_name' => 'required|string|max:255|unique:compradors,nombre_usuario|unique:vendedors,nombre_usuario',
                     ], [
                         'user_name.required' => 'El campo Nombre de Usuario es obligatorio.',
                         'user_name.string' => 'El campo Nombre de Usuario debe ser una cadena de texto.',

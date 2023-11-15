@@ -34,12 +34,12 @@
             <div id="vendedor_fields" style="display: none;">
                 <div class="mt-4">
                     <x-label for="user_nameV" value="{{ __('User Name') }}" />
-                    <x-input id="user_nameV" class="block mt-1 w-full" type="text" name="user_nameV" :value="old('user_nameV')" required/>
+                    <x-input id="user_nameV" class="block mt-1 w-full" type="text" name="user_nameV" :value="old('user_nameV')"/>
                 </div>
                 <!-- Aquí puedes agregar los demás campos para el vendedor -->
                 <div class="mt-4">
                     <x-label for="brand_name" value="{{ __('Brand Name') }}" />
-                    <x-input id="brand_name" class="block mt-1 w-full" type="text" name="brand_name" :value="old('brand_name')" required/>
+                    <x-input id="brand_name" class="block mt-1 w-full" type="text" name="brand_name" :value="old('brand_name')"/>
                 </div>
             </div>
 
@@ -58,9 +58,25 @@
                     if (userType == "vendedor") {
                         document.getElementById("vendedor_fields").style.display = "block";
                         document.getElementById("comprador_fields").style.display = "none";
+
+                        var nombre_usuarioV = document.getElementById('user_nameV');
+                        var nombre_marca = document.getElementById('brand_name');
+                        var nombre_usuario = document.getElementById('user_name');
+
+                        nombre_usuarioV.setAttribute('required', 'required');
+                        nombre_marca.setAttribute('required', 'required');
+                        nombre_usuario.removeAttribute('required');
                     } else if (userType == "comprador") {
                         document.getElementById("vendedor_fields").style.display = "none";
                         document.getElementById("comprador_fields").style.display = "block";
+
+                        var nombre_usuarioV = document.getElementById('user_nameV');
+                        var nombre_marca = document.getElementById('brand_name');
+                        var nombre_usuario = document.getElementById('user_name');
+
+                        nombre_usuarioV.removeAttribute('required');
+                        nombre_marca.removeAttribute('required');
+                        nombre_usuario.setAttribute('required', 'required');
                     }
                 }
                 document.getElementById("user_type").addEventListener("change", showFields);
