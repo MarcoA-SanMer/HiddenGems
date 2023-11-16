@@ -18,9 +18,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
- //                                                   ->middleware('auth'); Para solo verificar que este logeado sin importar el tipo de cuenta
-Route::resource('Producto', ProductoController::class)->middleware('checkUserType:vendedor');//cambiar vendedor a comprador si se desea verificar eso
+});                                                              
+//                                                   ->middleware('checkUserType:comprador'); verificamos si es comprador
+//                                                   ->middleware('auth'); Para solo verificar que este logeado sin importar el tipo de cuenta
+Route::resource('Producto', ProductoController::class)->middleware('checkUserType:vendedor');//verificamos si es vendedor
 Route::resource('Comprador', CompradorController::class);
 Route::resource('Vendedor', VendedorController::class);
 
@@ -37,3 +38,7 @@ Route::middleware([
 Route::get('/Admin', function () {
     return view('plantillaAdmin');
 });
+
+Route::get('/prueba', function () {
+    return view('prueba');
+})->middleware('auth');
