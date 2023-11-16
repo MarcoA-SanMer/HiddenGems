@@ -27,7 +27,7 @@ class emailController extends Controller
         // Aquí iría el código para procesar la compra...
 
         // Y luego envías el correo sin una vista específica
-        Mail::raw("Mediante este correo te confirmamos la compra de $producto->Nombre.\nPrecio: $producto->Precio\nDescripcion:$producto->Descripcion\n\n¡Muchas gracias, $user->name, por haber comprado en nuestra tienda online!", function ($message) use ($user) {
+        Mail::raw("Mediante este correo te confirmamos la compra de $producto->Nombre.\nPrecio: $producto->Precio\nDescripcion: $producto->Descripción\n\n¡Muchas gracias, $user->name, por haber comprado en nuestra tienda online!", function ($message) use ($user) {
             $message->from('hiddengems.oficial@gmail.com', 'Equipo HiddenGems');
             $message->to($user->email);
             $message->subject("Compra en HiddenGems");
