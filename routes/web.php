@@ -56,3 +56,6 @@ Route::get('/verp', [emailController::class, 'mostrarProductos'])->middleware('c
 
 //Ruta para el envio de correos personalizados
 Route::post('/Comprar/{producto}', [emailController::class, 'comprar'])->middleware('checkUserType:comprador');
+
+use App\Http\Controllers\CurrencyController;
+Route::get('/get-exchange-rate/{fromCurrency}/{toCurrency}', [CurrencyController::class, 'getExchangeRate']);

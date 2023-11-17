@@ -31,4 +31,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'currencylayer' => [
+        'access_key' => env('CURRENCY_LAYER_ACCESS_KEY', '9f72d1a4292bbb2e706c61e036782951'),
+    ],
+
 ];
