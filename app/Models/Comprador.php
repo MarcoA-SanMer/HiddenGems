@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Compra;
 
 class Comprador extends Model
 {
@@ -14,6 +16,11 @@ class Comprador extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function compras(): Hasmany
+    {
+        return $this->hasMany(Compra::class);
     }
 
 }

@@ -12,6 +12,7 @@ use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\vendedor;
 use App\Models\Comprador;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable
 {
@@ -61,12 +62,12 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function vendedor()
+    public function vendedor(): HasOne
     {
         return $this->hasOne(vendedor::class);
     }
 
-    public function comprador()
+    public function comprador(): HasOne
     {
         return $this->hasOne(Comprador::class);
     }
