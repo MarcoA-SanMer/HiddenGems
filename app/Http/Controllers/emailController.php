@@ -20,11 +20,13 @@ class emailController extends Controller
         }
 
         // Ahora, $producto contiene toda la información del producto
-
-        
         $user = Auth::user();
 
+
+        
         // Aquí iría el código para procesar la compra...
+
+
 
         // Y luego envías el correo sin una vista específica
         Mail::raw("Mediante este correo te confirmamos la compra de $producto->Nombre.\nPrecio: $producto->Precio\nDescripcion: $producto->Descripción\n\n¡Muchas gracias, $user->name, por haber comprado en nuestra tienda online!", function ($message) use ($user) {

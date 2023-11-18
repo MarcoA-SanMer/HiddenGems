@@ -40,22 +40,13 @@ Route::get('/Admin', function () {
 });
 
 
-
-
-
-
-
-
-//Esta ruta es de prueba, para probar el boton de logout
-Route::get('/logout', function () {
-    return view('prueba');
-})->middleware('auth');
-
 //ruta de prueba para simular compra
 Route::get('/verp', [emailController::class, 'mostrarProductos'])->middleware('checkUserType:comprador');
 
 //Ruta para el envio de correos personalizados
 Route::post('/Comprar/{producto}', [emailController::class, 'comprar'])->middleware('checkUserType:comprador');
 
+
+//Futa para controlador de la API
 use App\Http\Controllers\CurrencyController;
 Route::get('/get-exchange-rate/{fromCurrency}/{toCurrency}', [CurrencyController::class, 'getExchangeRate']);
