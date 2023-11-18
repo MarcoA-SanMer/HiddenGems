@@ -23,7 +23,7 @@
             $selectedCategoria = old('categoria');
         @endphp
 
-    <form action="{{ route('Producto.store') }}" method="post">
+    <form action="{{ route('Producto.store') }}" method="post" enctype="multipart/form-data">
         @csrf
 
         <label for="nombre">Nombre:</label><br>
@@ -41,6 +41,9 @@
             <option value="formal" {{ $selectedCategoria == 'formal' ? 'selected' : '' }}>Formal</option>
             <option value="deportivo" {{ $selectedCategoria == 'deportivo' ? 'selected' : '' }}>Deportivo</option>
         </select><br>
+
+        <label for="imagen">Imagen del Producto:</label><br>
+        <input type="file" id="imagen" name="imagen"><br>
 
         <input type="submit" value="Crear Producto">
     </form>
