@@ -23,7 +23,7 @@ class emailController extends Controller
         $user = Auth::user();
 
 
-        
+
         // Aquí iría el código para procesar la compra...
 
 
@@ -41,6 +41,22 @@ class emailController extends Controller
         $productos = Producto::all();
 
         return view('pruebaComprarEmail', ['productos' => $productos]);
+    }
+
+
+    public function verProducto(Request $request, $productoId)
+    {   
+        // Obtén el producto usando el modelo Producto
+        $producto = Producto::find($productoId);
+
+        // Verifica si el producto existe
+        if (!$producto) {
+            // Manejar la situación en la que el producto no existe
+            return redirect()->back()->with('error', 'El producto no existe.');
+        }
+
+        // Envia la variable $producto a la vista 'verProductoComprar'
+        return view('verProductoComprar')->with('producto', $producto);
     }
 
 }

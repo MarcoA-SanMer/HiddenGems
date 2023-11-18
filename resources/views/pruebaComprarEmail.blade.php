@@ -7,17 +7,19 @@
                 <div class="card h-100 shadow-sm">
                     <img src="https://hips.hearstapps.com/hmg-prod/images/beautiful-smooth-haired-red-cat-lies-on-the-sofa-royalty-free-image-1678488026.jpg?crop=0.88847xw:1xh;center,top&resize=1200:*" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <form action="{{ url('/Comprar/' . $producto->Id_producto) }}" method="post" class="needs-validation" novalidate>
+                        <form action="{{ url('/seeproduct/' . $producto->Id_producto) }}" method="post" class="needs-validation" novalidate>
                             @csrf
                             <input type="hidden" name="producto_id" value="{{ $producto->Id_producto }}">
                             <h2 class="card-title">{{ $producto->Nombre }}</h2>
                             <p old-currency="MXN" class="card-text" id="productPrice_{{ $producto->Id_producto }}" style="display: inline;">Precio: {{ $producto->Precio }}</p><p id="tipoMoneda" style="display: inline;"> MXN</p>
 
-                            <p class="card-text" >Descripcion:</p>
+                            {{-- <p class="card-text" >Descripcion:</p>
                             <textarea class="form-control" rows="3" readonly style="resize: none;">{{ $producto->Descripción }}
                             </textarea>
                             <br>
-                            <p class="card-text">Categoría: {{ $producto->Categoria }}</p>
+                            <p class="card-text">Categoría: {{ $producto->Categoria }}</p> --}}
+                            <br>
+                            <br>
                             <div class="form-group">
                                 <select class="currency" name="currency" class="form-control">
                                 <option value="MXN">Pesos Mexicanos</option>
@@ -28,7 +30,7 @@
                             </div>
                             
                             <div class="text-center my-4">
-                                <button type="submit" class="btn btn-primary">Comprar</button>
+                                <button type="submit" class="btn btn-dark">Ver Producto</button>
                             </div>
                         </form>
                     </div>

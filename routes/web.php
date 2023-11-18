@@ -40,13 +40,16 @@ Route::get('/Admin', function () {
 });
 
 
-//ruta de prueba para simular compra
-Route::get('/verp', [emailController::class, 'mostrarProductos'])->middleware('checkUserType:comprador');
-
-//Ruta para el envio de correos personalizados
+//Ruta para ver todos los productos.
+Route::get('/allproducts', [emailController::class, 'mostrarProductos'])->middleware('checkUserType:comprador');
+//Ruta para ver un producto en especial.
+Route::post('/seeproduct/{producto}', [emailController::class, 'verProducto'])->middleware('checkUserType:comprador');
+//Ruta para realizar la compra.
 Route::post('/Comprar/{producto}', [emailController::class, 'comprar'])->middleware('checkUserType:comprador');
 
 
-//Futa para controlador de la API
+
+
+//Ruta para controlador de la API.
 use App\Http\Controllers\CurrencyController;
-Route::get('/get-exchange-rate/{fromCurrency}/{toCurrency}', [CurrencyController::class, 'getExchangeRate']);
+Route::get('/get-exchange-rate/{fromCurrency}/{toCurrency}', [CurrencyController::class, 'getExchangeRate'])->middleware('checkUserType:comprador');
