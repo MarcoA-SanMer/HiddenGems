@@ -5,15 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\vendedor;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Models\Compra;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Producto extends Model
 {
-    protected $primaryKey = 'Id_producto';
+    protected $primaryKey = 'id';
     use HasFactory;
 
-    public function vendedor(): BelongsTo
+    public function vendedores(): BelongsToMany
     {
-        return $this->belongsTo(vendedor::class);
+        return $this->belongsToMany(vendedor::class);
+    }
+
+    public function compra(): HasOne
+    {
+        return $this->hasOne(Compra::class);
     }
 }

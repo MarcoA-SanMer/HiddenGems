@@ -24,5 +24,32 @@ class UsersTableSeeder extends Seeder
                 $user->comprador()->save(\App\Models\Comprador::factory()->make());
             }
         });
+
+        // Después de crear todos los vendedores y productos, puedes relacionarlos de manera aleatoria
+        $vendedores = \App\Models\vendedor::all();
+        $productos = \App\Models\Producto::all();
+        
+        foreach ($productos as $producto) {
+            // Selecciona un vendedor aleatorio
+            $vendedor = $vendedores->random();
+        
+            // Verifica si el producto ya está relacionado con el vendedor
+            if (!$producto->vendedores->contains($vendedor->id)) {
+                // Si no está relacionado, entonces relaciona el producto con el vendedor
+                $producto->vendedores()->attach($vendedor->id);
+            }
+        }
+
+        // Ahora que todos los productos han sido creados, puedes crear las compras para cada comprador
+        $compradores = \App\Models\Comprador::all();
+
+        foreach ($compradores as $comprador) {
+            $compras = \App\Models\Compra::factory(2)->make();
+            foreach ($compras as $compra) {
+                $producto = \App\Models\Producto::all()->random();
+                $compra->producto_id = $producto->id;
+                $comprador->compras()->save($compra);
+            }
+        }
     }
 }
