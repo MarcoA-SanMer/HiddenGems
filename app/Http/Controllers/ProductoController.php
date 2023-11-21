@@ -35,11 +35,15 @@ class ProductoController extends Controller
             'precio' => 'required',
             'descripcion' => 'required',
             'categoria' => 'required',
+            'imagen' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validar la nueva imagen
         ], [
             'nombre.required' => 'El campo Nombre es obligatorio.',
             'precio.required' => 'El campo Precio es obligatorio.',
             'descripcion.required' => 'El campo Descripción es obligatorio.',
             'categoria.required' => 'El campo Categoría es obligatorio.',
+            'imagen.image' => 'El archivo debe ser una imagen.',
+            'imagen.mimes' => 'Solo se permiten archivos de tipo jpeg, png, jpg o gif.',
+            'imagen.max' => 'La imagen no debe ser mayor de 2MB.',
         ]);
 
         $producto = new Producto;
