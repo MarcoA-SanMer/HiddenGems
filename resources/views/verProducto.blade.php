@@ -1,11 +1,23 @@
-<x-layouts.adminp title="Ver Producto">
-    <h1>Ver Producto</h1>
+<x-layouts.mainLayout>
+    <div class="container">
+        <h1 class="my-3">Ver Producto</h1>
 
-    <p><strong>Nombre:</strong> {{ $producto->Nombre }}</p>
-    <p><strong>Precio:</strong> {{ $producto->Precio }}</p>
-    <p><strong>Descripción:</strong> {{ $producto->Descripción }}</p>
-    <p><strong>Categoría:</strong> {{ $producto->Categoria }}</p>
+        <div class="card mb-3">
+            <div class="card-body">
+                <p><strong>Nombre:</strong> {{ $producto->Nombre }}</p>
+                <p><strong>Precio:</strong> {{ $producto->Precio }}</p>
+                <p><strong>Descripción:</strong> {{ $producto->Descripción }}</p>
+                <p><strong>Categoría:</strong> {{ $producto->Categoria }}</p>
 
-    <a href="{{ route('Producto.index') }}">Volver al listado de productos</a>
+                {{-- Mostrar la imagen si existe --}}
+                @if($producto->imagen_nombre)
+                    <img src="{{ asset('storage/imagenes/' . $producto->imagen_nombre) }}" alt="Imagen del Producto"  width="210" height="210" class="img-thumbnail my-3">
+                @else
+                    <p>No hay imagen disponible</p>
+                @endif
+            </div>
+        </div>
 
-</x-layouts.adminp>
+        <a href="{{ route('Producto.index') }}" class="btn btn-secondary">Volver al listado de productos</a>
+    </div>
+</x-layouts.mainLayout>
