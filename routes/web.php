@@ -21,9 +21,10 @@ Route::get('/', function () {
 });                                                              
 //                                                   ->middleware('checkUserType:comprador'); verificamos si es comprador
 //                                                   ->middleware('auth'); Para solo verificar que este logeado sin importar el tipo de cuenta
-Route::resource('Producto', ProductoController::class);//->middleware('checkUserType:vendedor');//verificamos si es vendedor
-Route::resource('Comprador', CompradorController::class);
-Route::resource('Vendedor', VendedorController::class);
+//                                                   ->middleware('checkUserType:vendedor');//verificamos si es vendedor
+Route::resource('Comprador', CompradorController::class);//retirar esta vista
+Route::resource('Producto', ProductoController::class)->middleware('checkUserType:vendedor');
+Route::resource('Vendedor', VendedorController::class);//retirar esta vista
 
 Route::middleware([
     'auth:sanctum',

@@ -5,7 +5,12 @@
         @foreach($productos as $producto)
             <div class="col">
                 <div class="card h-100 shadow-sm">
-                    <img src="https://hips.hearstapps.com/hmg-prod/images/beautiful-smooth-haired-red-cat-lies-on-the-sofa-royalty-free-image-1678488026.jpg?crop=0.88847xw:1xh;center,top&resize=1200:*" class="card-img-top" alt="...">
+                    {{-- Mostrar la imagen si existe --}}
+                    @if($producto->imagen_nombre)
+                        <img src="{{ asset('storage/imagenes/' . $producto->imagen_nombre) }}" alt="Imagen del Producto" >
+                    @else
+                        <p>No hay imagen disponible</p>
+                    @endif
                     <div class="card-body">
                         <form action="{{ url('/seeproduct/' . $producto->Id_producto) }}" method="post" class="needs-validation" novalidate>
                             @csrf

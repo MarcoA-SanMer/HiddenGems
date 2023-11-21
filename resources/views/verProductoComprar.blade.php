@@ -2,7 +2,15 @@
     <section class="py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="row gx-4 gx-lg-5 align-items-center">
-                <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://m.media-amazon.com/images/I/71PP3ekUkBL._AC_UF894,1000_QL80_.jpg" alt="..." /></div>
+                <div class="col-md-6">
+                
+                {{-- Mostrar la imagen si existe --}}
+                @if($producto->imagen_nombre)
+                    <img class="card-img-top mb-5 mb-md-0" src="{{ asset('storage/imagenes/' . $producto->imagen_nombre) }}" alt="Imagen del Producto" >
+                @else
+                    <p>No hay imagen disponible</p>
+                @endif
+                </div>
                     <div class="col-md-6">
                         <h1 class="display-5 fw-bolder">{{ $producto->Nombre }}</h1>
                         <div class="fs-5 mb-5">
