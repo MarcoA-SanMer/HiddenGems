@@ -4,7 +4,7 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\CompradorController;
 use App\Http\Controllers\VendedorController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\emailController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,11 +18,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
-
-Route::resource('Producto', ProductoController::class);
-Route::resource('Comprador', CompradorController::class);
-Route::resource('Vendedor', VendedorController::class);
+});                                                              
+//                                                   ->middleware('checkUserType:comprador'); verificamos si es comprador
+//                                                   ->middleware('auth'); Para solo verificar que este logeado sin importar el tipo de cuenta
+//                                                   ->middleware('checkUserType:vendedor');//verificamos si es vendedor
+Route::resource('Comprador', CompradorController::class);//retirar esta vista
+Route::resource('Producto', ProductoController::class)->middleware('checkUserType:vendedor');
+Route::resource('Vendedor', VendedorController::class);//retirar esta vista
 
 Route::middleware([
     'auth:sanctum',
@@ -37,3 +39,18 @@ Route::middleware([
 Route::get('/Admin', function () {
     return view('plantillaAdmin');
 });
+
+
+//Ruta para ver todos los productos.
+Route::get('/allproducts', [emailController::class, 'mostrarProductos'])->middleware('checkUserType:comprador');
+//Ruta para ver un producto en especial.
+Route::post('/seeproduct/{producto}', [emailController::class, 'verProducto'])->middleware('checkUserType:comprador');
+//Ruta para realizar la compra.
+Route::post('/Comprar/{producto}', [emailController::class, 'comprar'])->middleware('checkUserType:comprador');
+
+
+
+
+//Ruta para controlador de la API.
+use App\Http\Controllers\CurrencyController;
+Route::get('/get-exchange-rate/{fromCurrency}/{toCurrency}', [CurrencyController::class, 'getExchangeRate'])->middleware('checkUserType:comprador');

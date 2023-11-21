@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductoController extends Controller
 {
@@ -34,11 +35,15 @@ class ProductoController extends Controller
             'precio' => 'required',
             'descripcion' => 'required',
             'categoria' => 'required',
+            'imagen' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validar la nueva imagen
         ], [
             'nombre.required' => 'El campo Nombre es obligatorio.',
             'precio.required' => 'El campo Precio es obligatorio.',
             'descripcion.required' => 'El campo Descripción es obligatorio.',
             'categoria.required' => 'El campo Categoría es obligatorio.',
+            'imagen.image' => 'El archivo debe ser una imagen.',
+            'imagen.mimes' => 'Solo se permiten archivos de tipo jpeg, png, jpg o gif.',
+            'imagen.max' => 'La imagen no debe ser mayor de 2MB.',
         ]);
 
         $producto = new Producto;
@@ -47,6 +52,17 @@ class ProductoController extends Controller
         $producto->Precio = $request->precio;
         $producto->Descripción = $request->descripcion;
         $producto->Categoria = $request->categoria;
+
+        // Manejar la imagen
+        if ($request->hasFile('imagen')) {
+            $imagen = $request->file('imagen');
+            $nombreImagen = time() . '_' . $imagen->getClientOriginalName();
+            $imagen->storeAs('public/imagenes', $nombreImagen);
+        
+            // Guardar el nombre y la ruta de la imagen en la base de datos
+            $producto->imagen_nombre = $nombreImagen;
+            $producto->imagen_ruta = 'public/imagenes/'.$nombreImagen;
+        }
 
         if ($producto->save()) {
             // La operación de guardado fue exitosa, redirigir a Producto.index
@@ -86,11 +102,15 @@ class ProductoController extends Controller
             'precio' => 'required',
             'descripcion' => 'required',
             'categoria' => 'required',
+            'nueva_imagen' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validar la nueva imagen
         ], [
             'nombre.required' => 'El campo Nombre es obligatorio.',
             'precio.required' => 'El campo Precio es obligatorio.',
             'descripcion.required' => 'El campo Descripción es obligatorio.',
             'categoria.required' => 'El campo Categoría es obligatorio.',
+            'nueva_imagen.image' => 'El archivo debe ser una imagen.',
+            'nueva_imagen.mimes' => 'Solo se permiten archivos de tipo jpeg, png, jpg o gif.',
+            'nueva_imagen.max' => 'La imagen no debe ser mayor de 2MB.',
         ]);
     
         $producto = Producto::find($id);
@@ -98,6 +118,24 @@ class ProductoController extends Controller
         $producto->Precio = $request->precio;
         $producto->Descripción = $request->descripcion;
         $producto->Categoria = $request->categoria;
+
+        // Actualizar la imagen si se proporciona una nueva
+    if ($request->hasFile('nueva_imagen')) {
+        // Eliminar la imagen anterior si existe
+        if ($producto->imagen_nombre) {
+            Storage::delete('public/imagenes/' . $producto->imagen_nombre);
+        }
+
+        // Procesar la nueva imagen
+        $nuevaImagen = $request->file('nueva_imagen');
+        $nombreNuevaImagen = time() . '_' . $nuevaImagen->getClientOriginalName();
+        $nuevaImagen->storeAs('public/imagenes', $nombreNuevaImagen);
+
+        // Actualizar la información de la imagen en la base de datos
+        $producto->imagen_nombre = $nombreNuevaImagen;
+        $producto->imagen_ruta = 'public/imagenes/' . $nombreNuevaImagen;
+    }
+
         $producto->save();
     
         return redirect()->route('Producto.index')->with('success', 'Producto actualizado exitosamente!');
