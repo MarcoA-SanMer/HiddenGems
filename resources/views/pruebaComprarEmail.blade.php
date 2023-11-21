@@ -12,11 +12,11 @@
                         <p>No hay imagen disponible</p>
                     @endif
                     <div class="card-body">
-                        <form action="{{ url('/seeproduct/' . $producto->Id_producto) }}" method="post" class="needs-validation" novalidate>
+                        <form action="{{ url('/seeproduct/' . $producto->id) }}" method="post" class="needs-validation" novalidate>
                             @csrf
-                            <input type="hidden" name="producto_id" value="{{ $producto->Id_producto }}">
+                            <input type="hidden" name="producto_id" value="{{ $producto->id }}">
                             <h2 class="card-title">{{ $producto->Nombre }}</h2>
-                            <p old-currency="MXN" class="card-text" id="productPrice_{{ $producto->Id_producto }}" style="display: inline;">Precio: {{ $producto->Precio }}</p><p id="tipoMoneda" style="display: inline;"> MXN</p>
+                            <p old-currency="MXN" class="card-text" id="productPrice_{{ $producto->id }}" style="display: inline;">Precio: {{ $producto->Precio }}</p><p id="tipoMoneda" style="display: inline;"> MXN</p>
 
                             {{-- <p class="card-text" >Descripcion:</p>
                             <textarea class="form-control" rows="3" readonly style="resize: none;">{{ $producto->Descripción }}

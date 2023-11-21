@@ -2,7 +2,7 @@
     <div class="container">
         <h1 class="my-3">Editar Producto</h1>
 
-        <form action="{{ route('Producto.update', $producto->Id_producto) }}" method="post" enctype="multipart/form-data" class="mb-3">
+        <form action="{{ route('Producto.update', $producto->id) }}" method="post" enctype="multipart/form-data" class="mb-3">
             @csrf
             @method('PATCH')
 
