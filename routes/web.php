@@ -52,17 +52,16 @@ Route::get('/Admin', function () {
 
 
 //Ruta para ver todos los productos.
-Route::get('/allproducts', [CompraController::class, 'index'])->middleware('checkUserType:comprador');
+Route::get('/allproducts', [CompraController::class, 'index'])->name('allproducts')->middleware('checkUserType:comprador');
 //Ruta para ver un producto en especial.
 Route::post('/seeproduct/{producto}', [CompraController::class, 'create'])->middleware('checkUserType:comprador');
 //Ruta para realizar la compra.
 Route::post('/Comprar/{producto}', [CompraController::class, 'store'])->middleware('checkUserType:comprador');
 
-
-
-
-
-
+//Ruta para mostrar el historial de compras
+Route::get('/historial', [CompraController::class, 'historial'])->name('historial')->middleware('checkUserType:comprador');
+//Ruta para borrar alguna compra del historial
+Route::delete('/borrarcompra/{compraid}', [CompraController::class, 'destroy'])->name('borrarcompra.destroy')->middleware('checkUserType:comprador');
 
 
 //Ruta para controlador de la API.

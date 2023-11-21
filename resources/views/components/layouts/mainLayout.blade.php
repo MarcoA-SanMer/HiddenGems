@@ -28,9 +28,10 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#!">Settings</a></li>
-                    <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                    <li><hr class="dropdown-divider" /></li>
+                    @if (Auth::check() && Auth::user()->user_type == 'comprador')
+                        <li><a class="dropdown-item" href="{{ route('historial') }}">Purchase history</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                    @endif
                     <form method="POST" action="{{ route('logout') }}" class="px-3 py-2">
                         @csrf
                         <button type="submit" class="btn btn-dark btn-block">Log Out</button>

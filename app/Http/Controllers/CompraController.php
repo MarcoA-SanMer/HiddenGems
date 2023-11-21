@@ -119,8 +119,42 @@ class CompraController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Compra $compra)
+    public function destroy($compraid)
     {
-        //
+        // Busca la compra por su ID
+        $compra = Compra::find($compraid);
+
+        // Verifica si la compra existe
+        if (!$compra) {
+            // Manejar la situación en la que la compra no existe
+            return redirect()->back()->with('error', 'La compra no existe.');
+        }
+
+        // Elimina la compra
+        $compra->delete();
+
+        // Redirige al usuario con un mensaje de éxito
+        return redirect()->back()->with('success', 'Compra eliminada con éxito.');
+    }
+
+    public function historial()
+    {
+        // Ahora, $producto contiene toda la información del producto
+        $user = Auth::user();
+
+
+
+        // Obtén el comprador que corresponde al usuario autenticado
+        $comprador = Comprador::where('user_id', $user->id)->first();
+
+        // Verifica si el comprador existe
+        if (!$comprador) {
+            // Manejar la situación en la que el comprador no existe
+            return redirect()->back()->with('error', 'El comprador no existe.');
+        }
+        // Obtén las compras que corresponden al comprador
+        $compras = Compra::where('comprador_id', $comprador->id)->get();
+        
+        return view('historial', ['compras' => $compras]);
     }
 }
