@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\CompradorController;
 use App\Http\Controllers\VendedorController;
+use App\Http\Controllers\CompraController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\emailController;
 /*
@@ -42,11 +43,24 @@ Route::get('/Admin', function () {
 
 
 //Ruta para ver todos los productos.
-Route::get('/allproducts', [emailController::class, 'mostrarProductos'])->middleware('checkUserType:comprador');
+//Route::get('/allproducts', [emailController::class, 'mostrarProductos'])->middleware('checkUserType:comprador');
 //Ruta para ver un producto en especial.
-Route::post('/seeproduct/{producto}', [emailController::class, 'verProducto'])->middleware('checkUserType:comprador');
+//Route::post('/seeproduct/{producto}', [emailController::class, 'verProducto'])->middleware('checkUserType:comprador');
 //Ruta para realizar la compra.
-Route::post('/Comprar/{producto}', [emailController::class, 'comprar'])->middleware('checkUserType:comprador');
+//Route::post('/Comprar/{producto}', [emailController::class, 'comprar'])->middleware('checkUserType:comprador');
+
+
+
+//Ruta para ver todos los productos.
+Route::get('/allproducts', [CompraController::class, 'index'])->middleware('checkUserType:comprador');
+//Ruta para ver un producto en especial.
+Route::post('/seeproduct/{producto}', [CompraController::class, 'create'])->middleware('checkUserType:comprador');
+//Ruta para realizar la compra.
+Route::post('/Comprar/{producto}', [CompraController::class, 'store'])->middleware('checkUserType:comprador');
+
+
+
+
 
 
 
