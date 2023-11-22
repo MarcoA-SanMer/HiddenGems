@@ -1,7 +1,7 @@
 <x-layouts.mainLayout>
 
     <div class="container">
-        <h1 class="my-3">Listado de Productos</h1>
+        {{-- <h1 class="my-3">Listado de Productos</h1>
         <ul class="list-group">
             @foreach($productos as $producto)
             <li class="list-group-item">
@@ -15,7 +15,7 @@
                 </form>
             </li>
             @endforeach
-        </ul>
+        </ul> --}}
         
         <h1 class="my-3">Crear Producto</h1>
 

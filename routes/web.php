@@ -3,8 +3,13 @@
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\CompradorController;
 use App\Http\Controllers\VendedorController;
+use App\Http\Controllers\CompraController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\emailController;
+use App\Models\Producto;
+use Illuminate\Support\Facades\Auth;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,18 +27,23 @@ Route::get('/', function () {
 //                                                   ->middleware('checkUserType:comprador'); verificamos si es comprador
 //                                                   ->middleware('auth'); Para solo verificar que este logeado sin importar el tipo de cuenta
 //                                                   ->middleware('checkUserType:vendedor');//verificamos si es vendedor
-Route::resource('Comprador', CompradorController::class);//retirar esta vista
-Route::resource('Producto', ProductoController::class)->middleware('checkUserType:vendedor');
-Route::resource('Vendedor', VendedorController::class);//retirar esta vista
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+        Route::get('/home', function () {
+            $user = Auth::user();
+    
+            if ($user->user_type == 'vendedor') {
+                return redirect()->route('Producto.index');
+            }
+    
+            if ($user->user_type == 'comprador') {
+                return redirect()->route('allproducts');
+            }
+        })->name('home');
 });
 
 Route::get('/Admin', function () {
@@ -42,13 +52,33 @@ Route::get('/Admin', function () {
 
 
 //Ruta para ver todos los productos.
-Route::get('/allproducts', [emailController::class, 'mostrarProductos'])->middleware('checkUserType:comprador');
+//Route::get('/allproducts', [emailController::class, 'mostrarProductos'])->middleware('checkUserType:comprador');
 //Ruta para ver un producto en especial.
-Route::post('/seeproduct/{producto}', [emailController::class, 'verProducto'])->middleware('checkUserType:comprador');
+//Route::post('/seeproduct/{producto}', [emailController::class, 'verProducto'])->middleware('checkUserType:comprador');
 //Ruta para realizar la compra.
-Route::post('/Comprar/{producto}', [emailController::class, 'comprar'])->middleware('checkUserType:comprador');
+//Route::post('/Comprar/{producto}', [emailController::class, 'comprar'])->middleware('checkUserType:comprador');
 
 
+
+
+
+//Ruta index para vendedores
+Route::resource('Producto', ProductoController::class)->middleware('checkUserType:vendedor');
+//Ruta para ver los productos de los vendedores
+Route::get('/misproductos', [ProductoController::class, 'misProductos'])->name('misproductos')->middleware('checkUserType:vendedor');
+
+
+//Ruta para ver todos los productos.
+Route::get('/allproducts', [CompraController::class, 'index'])->name('allproducts')->middleware('checkUserType:comprador');
+//Ruta para ver un producto en especial.
+Route::post('/seeproduct/{producto}', [CompraController::class, 'create'])->middleware('checkUserType:comprador');
+//Ruta para realizar la compra.
+Route::post('/Comprar/{producto}', [CompraController::class, 'store'])->middleware('checkUserType:comprador');
+
+//Ruta para mostrar el historial de compras
+Route::get('/historial', [CompraController::class, 'historial'])->name('historial')->middleware('checkUserType:comprador');
+//Ruta para borrar alguna compra del historial
+Route::delete('/borrarcompra/{compraid}', [CompraController::class, 'destroy'])->name('borrarcompra.destroy')->middleware('checkUserType:comprador');
 
 
 //Ruta para controlador de la API.
