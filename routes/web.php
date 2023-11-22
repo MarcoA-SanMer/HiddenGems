@@ -6,6 +6,7 @@ use App\Http\Controllers\VendedorController;
 use App\Http\Controllers\CompraController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\emailController;
+use App\Models\Producto;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -57,7 +58,15 @@ Route::get('/Admin', function () {
 //Ruta para realizar la compra.
 //Route::post('/Comprar/{producto}', [emailController::class, 'comprar'])->middleware('checkUserType:comprador');
 
+
+
+
+
+//Ruta index para vendedores
 Route::resource('Producto', ProductoController::class)->middleware('checkUserType:vendedor');
+//Ruta para ver los productos de los vendedores
+Route::get('/misproductos', [ProductoController::class, 'misProductos'])->name('misproductos')->middleware('checkUserType:vendedor');
+
 
 //Ruta para ver todos los productos.
 Route::get('/allproducts', [CompraController::class, 'index'])->name('allproducts')->middleware('checkUserType:comprador');

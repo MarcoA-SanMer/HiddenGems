@@ -28,10 +28,8 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    @if (Auth::check() && Auth::user()->user_type == 'comprador')
-                        <li><a class="dropdown-item" href="{{ route('historial') }}">Purchase history</a></li>
+                        <li><a class="dropdown-item" href="">Mi cuenta</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                    @endif
                     <form method="POST" action="{{ route('logout') }}" class="px-3 py-2">
                         @csrf
                         <button type="submit" class="btn btn-dark btn-block">Log Out</button>
@@ -45,11 +43,19 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
+                            <div class="sb-sidenav-footer">
+                            <div class="small">Welcome:</div>
+                            {{ Auth::user()->name}} 
+                        </div>
                             @if (Auth::check() && Auth::user()->user_type == 'comprador')
                                 <div class="sb-sidenav-menu-heading">Comprador</div>
                                 <a class="nav-link" href="{{ route('allproducts') }}">
                                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                     Todos los Productos
+                                </a>
+                                <a class="nav-link" href="{{ route('historial') }}">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                    Historial de Compras
                                 </a>
                             @endif
                             @if (Auth::check() && Auth::user()->user_type == 'vendedor')
@@ -58,7 +64,7 @@
                                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                     Subir Producto
                                 </a>
-                                <a class="nav-link" href="{{ route('Producto.index') }}">
+                                <a class="nav-link" href="{{ route('misproductos') }}">
                                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                     Mis Productos
                                 </a>
@@ -117,10 +123,6 @@
                                 Tables
                             </a> --}}
                         </div>
-                    </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Welcome:</div>
-                        {{ Auth::user()->name}}
                     </div>
                 </nav>
             </div>

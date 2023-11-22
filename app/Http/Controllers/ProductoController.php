@@ -17,6 +17,12 @@ class ProductoController extends Controller
         return view('crearProducto',compact('productos'));
     }
 
+    public function misProductos()
+    {
+        $productos = Producto::all();
+        return view('misProductos',compact('productos'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
