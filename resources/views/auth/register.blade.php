@@ -29,7 +29,6 @@
 
             <!-- Campos vendedor o comprador -->
 
-
             <!-- Campos para Vendedor -->
             <div id="vendedor_fields" style="display: none;">
                 <div class="mt-4">
@@ -53,16 +52,20 @@
             </div>
 
             <script>
+                // Definir elementos fuera de la función para evitar problemas de ámbito
+                var nombre_usuarioV = document.getElementById('user_nameV');
+                var nombre_marca = document.getElementById('brand_name');
+                var nombre_usuario = document.getElementById('user_name');
+                var userTypeSelect = document.getElementById("user_type");
+
                 function showFields() {
-                    var userType = document.getElementById("user_type").value;
+                    var userType = userTypeSelect.value;
+
                     if (userType == "vendedor") {
                         document.getElementById("vendedor_fields").style.display = "block";
                         document.getElementById("comprador_fields").style.display = "none";
 
-                        var nombre_usuarioV = document.getElementById('user_nameV');
-                        var nombre_marca = document.getElementById('brand_name');
-                        var nombre_usuario = document.getElementById('user_name');
-
+                        // Mostrar u ocultar campos requeridos
                         nombre_usuarioV.setAttribute('required', 'required');
                         nombre_marca.setAttribute('required', 'required');
                         nombre_usuario.removeAttribute('required');
@@ -70,16 +73,28 @@
                         document.getElementById("vendedor_fields").style.display = "none";
                         document.getElementById("comprador_fields").style.display = "block";
 
-                        var nombre_usuarioV = document.getElementById('user_nameV');
-                        var nombre_marca = document.getElementById('brand_name');
-                        var nombre_usuario = document.getElementById('user_name');
-
+                        // Mostrar u ocultar campos requeridos
                         nombre_usuarioV.removeAttribute('required');
                         nombre_marca.removeAttribute('required');
                         nombre_usuario.setAttribute('required', 'required');
                     }
                 }
-                document.getElementById("user_type").addEventListener("change", showFields);
+
+                // Almacenar y recuperar el valor seleccionado del combobox en el Local Storage
+                userTypeSelect.addEventListener("change", function() {
+                    localStorage.setItem("userType", userTypeSelect.value);
+                    showFields(); // Llamar a showFields después de cambiar la opción
+                });
+
+                // Recuperar el valor del Local Storage y establecerlo como valor seleccionado
+                var storedUserType = localStorage.getItem("userType");
+                if (storedUserType) {
+                    userTypeSelect.value = storedUserType;
+                    showFields(); // Llamar a showFields después de establecer el valor desde el Local Storage
+                }
+
+                // Agregar el evento al elemento select
+                userTypeSelect.addEventListener("change", showFields);
             </script>
 
             <div class="mt-4">
