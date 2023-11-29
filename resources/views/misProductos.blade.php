@@ -8,10 +8,16 @@
                 {{$producto->Nombre}}
                 <a href="{{ route('Producto.show', $producto->id) }}" class="btn btn-primary btn-sm">Ver</a>
                 <a href="{{ route('Producto.edit', $producto->id) }}" class="btn btn-warning btn-sm">Editar</a>
+                
+                <form action="{{ route('Producto.colaborate_s') }}" method="post" class="d-inline">
+                    @csrf
+                    <input type="hidden" name="id" value="{{ $producto->id }}">
+                    <button type="submit" class="btn btn-success btn-sm">Colaborar</button>
+                </form>
                 <form action="{{ route('Producto.destroy', $producto->id) }}" method="POST" class="d-inline">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger btn-sm">Borrar</button>
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger btn-sm">Borrar</button>
                 </form>
             </li>
             @endforeach
