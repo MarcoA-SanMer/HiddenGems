@@ -7,9 +7,9 @@
                 <div class="card h-100 shadow-sm">
                     {{-- Mostrar la imagen si existe --}}
                     @if($producto->imagen_nombre)
-                        <img src="{{ asset('storage/imagenes/' . $producto->imagen_nombre) }}" alt="Imagen del Producto" >
+                        <img src="{{ asset('storage/imagenes/' . $producto->imagen_nombre) }}" alt="Imagen del Producto">
                     @else
-                        <p>No hay imagen disponible</p>
+                        <img src="{{ asset('images/no_image.jpg')}}" alt="no hay imagen disponible">
                     @endif
                     <div class="card-body">
                         <form action="{{ url('/seeproduct/' . $producto->id) }}" method="post" class="needs-validation" novalidate>

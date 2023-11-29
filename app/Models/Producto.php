@@ -8,11 +8,13 @@ use App\Models\vendedor;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Models\Compra;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Producto extends Model
 {
     protected $primaryKey = 'id';
     use HasFactory;
+    use SoftDeletes;
 
     public function vendedores(): BelongsToMany
     {

@@ -6,6 +6,7 @@ use App\Http\Controllers\VendedorController;
 use App\Http\Controllers\CompraController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\emailController;
+use App\Http\Controllers\UserController;
 use App\Models\Producto;
 use Illuminate\Support\Facades\Auth;
 
@@ -64,6 +65,12 @@ Route::get('/Admin', function () {
 
 //Ruta index para vendedores
 Route::resource('Producto', ProductoController::class)->middleware('checkUserType:vendedor');
+Route::post('Producto/colaborate', [ProductoController::class, 'colaborate_show'])->name('Producto.colaborate_s')->middleware('checkUserType:vendedor');
+Route::post('Producto/colaboration', [ProductoController::class, 'colaborate'])->name('Producto.colaborate')->middleware('checkUserType:vendedor');
+//Usuarios
+Route::patch('User/edit/{id}', [UserController::class, 'edit'])->name('User.edit')->middleware('auth');
+Route::get('User/show_user_info', [UserController::class, 'show_user_info'])->name('User.show_user_info')->middleware('auth');
+Route::delete('User/delete/{id}', [UserController::class, 'destroy'])->name('User.destroy')->middleware('auth');
 //Ruta para ver los productos de los vendedores
 Route::get('/misproductos', [ProductoController::class, 'misProductos'])->name('misproductos')->middleware('checkUserType:vendedor');
 

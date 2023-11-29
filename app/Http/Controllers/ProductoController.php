@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Producto;
+use App\Models\vendedor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -19,7 +20,9 @@ class ProductoController extends Controller
 
     public function misProductos()
     {
-        $productos = Producto::all();
+        $user = auth()->User();
+        $vendedor = $user->vendedor;
+        $productos = $vendedor->productos;
         return view('misProductos',compact('productos'));
     }
 
@@ -70,8 +73,12 @@ class ProductoController extends Controller
             $producto->imagen_ruta = 'public/imagenes/'.$nombreImagen;
         }
 
+        $user = auth()->User();
+        $vendedor = $user->vendedor;
+
         if ($producto->save()) {
             // La operación de guardado fue exitosa, redirigir a Producto.index
+            $producto->vendedores()->attach($vendedor->id);
             return redirect()->route('Producto.index')->with('success', 'Producto creado exitosamente!');
         } else {
             // La operación de guardado falló, redirigir a Producto.create
@@ -95,7 +102,34 @@ class ProductoController extends Controller
     public function edit($id)
     {
         $producto = Producto::find($id);
-        return view('editarProducto', compact('producto'));
+        $vendedor = auth()->User()->vendedor;
+        $consulta = $vendedor->productos()->find($id);
+
+        if ($consulta) {
+            return view('editarProducto', compact('producto'));
+        } else {
+            return redirect()->back()->with('error', 'El producto no te pertenece.');
+        }
+        
+    }
+
+    public function colaborate_show(Request $request)
+    {
+        $id = $request->input('id');
+        $producto = Producto::find($id);
+        return view('colaborate', compact('producto'));
+    }
+
+    public function colaborate(Request $request)
+    {
+        $id_vendedor = $request->input('id_vendedor');
+        $id_product = $request->input('id_producto');
+        $producto = Producto::find($id_product);
+        $vendedor = vendedor::find($id_vendedor);
+
+        $producto->vendedores()->attach($vendedor->id);
+        return redirect()->route('Producto.index')->with('success', 'Colaboración exitosa!');
+
     }
 
     /**
