@@ -88,6 +88,10 @@ Route::get('/historial', [CompraController::class, 'historial'])->name('historia
 Route::delete('/borrarcompra/{compraid}', [CompraController::class, 'destroy'])->name('borrarcompra.destroy')->middleware('checkUserType:comprador');
 
 
+
+//Ruta para mostrar mis cventas
+Route::get('/misventas', [ProductoController::class, 'misventas'])->name('misventas')->middleware('checkUserType:vendedor');
+
 //Ruta para controlador de la API.
 use App\Http\Controllers\CurrencyController;
 Route::get('/get-exchange-rate/{fromCurrency}/{toCurrency}', [CurrencyController::class, 'getExchangeRate'])->middleware('checkUserType:comprador');
