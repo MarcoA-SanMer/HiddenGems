@@ -75,7 +75,7 @@
                                     <div class="sb-nav-link-icon"><img src="{{ asset('icons/mis_productos.png')}}" width="25px" height="25px"></div>
                                     Mis Productos
                                 </a>
-                                <a class="nav-link" href="">
+                                <a class="nav-link" href="{{ route('miscolaboraciones') }}">
                                     <div class="sb-nav-link-icon"><img src="{{ asset('icons/colaboraciones.png')}}" width="25px" height="25px"></div>
                                     Colaboraciones
                                 </a>

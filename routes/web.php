@@ -73,7 +73,7 @@ Route::get('User/show_user_info', [UserController::class, 'show_user_info'])->na
 Route::delete('User/delete/{id}', [UserController::class, 'destroy'])->name('User.destroy')->middleware('auth');
 //Ruta para ver los productos de los vendedores
 Route::get('/misproductos', [ProductoController::class, 'misProductos'])->name('misproductos')->middleware('checkUserType:vendedor');
-
+Route::get('/misColaboraciones', [ProductoController::class, 'misColaboraciones'])->name('miscolaboraciones')->middleware('checkUserType:vendedor');
 
 //Ruta para ver todos los productos.
 Route::get('/allproducts', [CompraController::class, 'index'])->name('allproducts')->middleware('checkUserType:comprador');

@@ -28,6 +28,14 @@ class ProductoController extends Controller
         return view('misProductos',compact('productos'));
     }
 
+    public function misColaboraciones()
+    {
+        $user = auth()->user();
+        $vendedor = $user->vendedor;
+        $productos = $vendedor->productos()->with('vendedores')->get();
+        return view('verColaboraciones', compact('productos'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
