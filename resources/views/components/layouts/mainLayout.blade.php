@@ -80,7 +80,7 @@
                                     Colaboraciones
                                 </a>
 
-                                <a class="nav-link" href="">
+                                <a class="nav-link" href="{{ route('misventas') }}">
                                     <div class="sb-nav-link-icon"><img src="{{ asset('icons/ventas.png')}}" width="25px" height="25px"></div>
                                     Mis ventas
                                 </a>

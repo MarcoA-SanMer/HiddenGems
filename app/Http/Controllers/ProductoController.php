@@ -224,4 +224,15 @@ class ProductoController extends Controller
 
         return redirect()->route('Producto.index')->with('success', 'Producto eliminado exitosamente!');
     }
+
+    public function misventas()
+    {
+        $user = auth()->user();
+        $vendedor = $user->vendedor;
+        $productos = $vendedor->productos()->with('compras')->get();
+        return view('misVentas', compact('productos'));
+
+    }
+
+
 }
