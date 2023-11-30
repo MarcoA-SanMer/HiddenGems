@@ -52,6 +52,6 @@
             </ul>
         </div>
         @endif
-        <a href="{{ route('Producto.index') }}" class="btn btn-secondary">Volver al listado de productos</a>
+        <a href="{{ route('misproductos') }}" class="btn btn-secondary">Volver al listado de productos</a>
     </div>
 </x-layouts.mainLayout>

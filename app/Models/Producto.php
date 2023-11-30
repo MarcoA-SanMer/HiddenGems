@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\vendedor;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Models\Compra;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -21,8 +22,8 @@ class Producto extends Model
         return $this->belongsToMany(vendedor::class);
     }
 
-    public function compra(): HasOne
+    public function compras(): HasMany
     {
-        return $this->hasOne(Compra::class);
+        return $this->hasMany(Compra::class);
     }
 }

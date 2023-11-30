@@ -68,7 +68,7 @@ Route::resource('Producto', ProductoController::class)->middleware('checkUserTyp
 Route::post('Producto/colaborate', [ProductoController::class, 'colaborate_show'])->name('Producto.colaborate_s')->middleware('checkUserType:vendedor');
 Route::post('Producto/colaboration', [ProductoController::class, 'colaborate'])->name('Producto.colaborate')->middleware('checkUserType:vendedor');
 //Usuarios
-Route::patch('User/edit/{id}', [UserController::class, 'edit'])->name('User.edit')->middleware('auth');
+Route::post('User/edit', [UserController::class, 'edit'])->name('User.edit')->middleware('auth');
 Route::get('User/show_user_info', [UserController::class, 'show_user_info'])->name('User.show_user_info')->middleware('auth');
 Route::delete('User/delete/{id}', [UserController::class, 'destroy'])->name('User.destroy')->middleware('auth');
 //Ruta para ver los productos de los vendedores

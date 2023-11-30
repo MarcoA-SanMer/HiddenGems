@@ -6,6 +6,8 @@ use App\Models\Producto;
 use App\Models\vendedor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ProductoController extends Controller
 {
@@ -41,13 +43,14 @@ class ProductoController extends Controller
     {
         $request->validate([
             'nombre' => 'required',
-            'precio' => 'required',
+            'precio' => 'required|numeric',
             'descripcion' => 'required',
             'categoria' => 'required',
             'imagen' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validar la nueva imagen
         ], [
             'nombre.required' => 'El campo Nombre es obligatorio.',
             'precio.required' => 'El campo Precio es obligatorio.',
+            'precio.numeric' => 'El campo Precio debe ser un numero.',
             'descripcion.required' => 'El campo Descripción es obligatorio.',
             'categoria.required' => 'El campo Categoría es obligatorio.',
             'imagen.image' => 'El archivo debe ser una imagen.',
@@ -122,6 +125,27 @@ class ProductoController extends Controller
 
     public function colaborate(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'id_vendedor' => [
+                'required',
+                'numeric',
+                Rule::exists('vendedors', 'id'), // Verifica que el ID del vendedor exista en la tabla 'vendedors'
+                Rule::unique('producto_vendedor', 'vendedor_id')->where(function ($query) use ($request) {
+                    return $query->where('producto_id', $request->id_producto);
+                }),
+            ],
+        ], [
+            'id_vendedor.required' => 'El campo id vendedor es obligatorio.',
+            'id_vendedor.numeric' => 'El campo id vendedor debe ser un número.',
+            'id_vendedor.exists' => 'El vendedor no existe.',
+            'id_vendedor.unique' => 'La colaboracion ya existe',
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect('misproductos')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
         $id_vendedor = $request->input('id_vendedor');
         $id_product = $request->input('id_producto');
         $producto = Producto::find($id_product);
@@ -139,13 +163,14 @@ class ProductoController extends Controller
     {
         $request->validate([
             'nombre' => 'required',
-            'precio' => 'required',
+            'precio' => 'required|numeric',
             'descripcion' => 'required',
             'categoria' => 'required',
             'nueva_imagen' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validar la nueva imagen
         ], [
             'nombre.required' => 'El campo Nombre es obligatorio.',
             'precio.required' => 'El campo Precio es obligatorio.',
+            'precio.numeric' => 'El campo Precio debe ser numerico.',
             'descripcion.required' => 'El campo Descripción es obligatorio.',
             'categoria.required' => 'El campo Categoría es obligatorio.',
             'nueva_imagen.image' => 'El archivo debe ser una imagen.',

@@ -24,4 +24,9 @@ class Comprador extends Model
         return $this->hasMany(Compra::class);
     }
 
+    public function setNombreUsuarioAttribute($value)
+    {
+        $this->attributes['nombre_usuario'] = strtolower($value);
+    }
+
 }

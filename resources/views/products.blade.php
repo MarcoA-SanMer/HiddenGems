@@ -33,10 +33,17 @@
                                 <!-- Agrega aquí las demás monedas que quieras soportar -->
                                 </select>
                             </div>
-                            
+                            <br>
+                            <h5>Vendedores</h5>
+                            <ul>
+                            @foreach($producto->vendedores as $vendedor)
+                                <li>{{$vendedor->nombre_marca}}</li>
+                            @endforeach
+                            </ul>
                             <div class="text-center my-4">
                                 <button type="submit" class="btn btn-dark">Ver Producto</button>
                             </div>
+
                         </form>
                     </div>
                 </div>
