@@ -63,17 +63,18 @@ Route::get('/Admin', function () {
 
 
 
-//Ruta index para vendedores
+//Rutas para productos
 Route::resource('Producto', ProductoController::class)->middleware('checkUserType:vendedor');
+
 Route::post('Producto/colaborate', [ProductoController::class, 'colaborate_show'])->name('Producto.colaborate_s')->middleware('checkUserType:vendedor');
 Route::post('Producto/colaboration', [ProductoController::class, 'colaborate'])->name('Producto.colaborate')->middleware('checkUserType:vendedor');
 //Usuarios
-Route::patch('User/edit/{id}', [UserController::class, 'edit'])->name('User.edit')->middleware('auth');
+Route::post('User/edit', [UserController::class, 'edit'])->name('User.edit')->middleware('auth');
 Route::get('User/show_user_info', [UserController::class, 'show_user_info'])->name('User.show_user_info')->middleware('auth');
 Route::delete('User/delete/{id}', [UserController::class, 'destroy'])->name('User.destroy')->middleware('auth');
 //Ruta para ver los productos de los vendedores
 Route::get('/misproductos', [ProductoController::class, 'misProductos'])->name('misproductos')->middleware('checkUserType:vendedor');
-
+Route::get('/misColaboraciones', [ProductoController::class, 'misColaboraciones'])->name('miscolaboraciones')->middleware('checkUserType:vendedor');
 
 //Ruta para ver todos los productos.
 Route::get('/allproducts', [CompraController::class, 'index'])->name('allproducts')->middleware('checkUserType:comprador');
@@ -87,6 +88,10 @@ Route::get('/historial', [CompraController::class, 'historial'])->name('historia
 //Ruta para borrar alguna compra del historial
 Route::delete('/borrarcompra/{compraid}', [CompraController::class, 'destroy'])->name('borrarcompra.destroy')->middleware('checkUserType:comprador');
 
+
+
+//Ruta para mostrar mis cventas
+Route::get('/misventas', [ProductoController::class, 'misventas'])->name('misventas')->middleware('checkUserType:vendedor');
 
 //Ruta para controlador de la API.
 use App\Http\Controllers\CurrencyController;

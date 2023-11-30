@@ -6,46 +6,48 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Comprador;
 use App\Models\vendedor;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    public function edit(Request $request, $id)
+    public function edit(Request $request)
     {
-        dd($request->newname);
-        $request->validate([
-            'newname' => 'required',
-            'newusername' => 'required',
-        ]);
+        $id = $request->id;
+        $user = User::find($id);
+        $user->name = $request->nombre;
+        $contra1 = $request->contra;
+        $contra2 = $request->contra2;
 
-        dd($request->newname);
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'required',
+            'contra' => [
+                'required',
+                function ($attribute, $value, $fail) use ($request) {
+                    if ($value !== $request->contra2) {
+                        $fail('Las contraseñas no coinciden.');
+                    }
+                },
+            ],
+            'contra2' => 'required',
+        ], [
+            'nombre.required' => 'El nombre es obligatorio.',
+            'contra.required' => 'La contraseña es obligatoria.',
+            'contra2.required' => 'La confirmación de la contraseña es obligatoria.',
+        ]);
         
-        // Ahora, $producto contiene toda la información del producto
-        $user = User::find($id);;
-        
-        $user->name = $request->newname;
+        if ($validator->fails()) {
+            return redirect()->route('User.show_user_info')
+                ->withErrors($validator)
+                ->withInput()
+                ->with(['user' => $user]);
+        }
+
+        $user->password = Hash::make($contra1);
         
         $user->save();
-        
-        if($user->user_type == 'comprador')
-        {
-            // Obtén el comprador que corresponde al usuario autenticado
-            $comprador = Comprador::where('user_id', $user->id)->first();
-            
-            if($comprador){
-                $comprador->nombre_usuario = $request->newusername;
-                $comprador->save();
-            }
-        }
-        else
-        {
-            $vendedor = vendedor::where('user_id', $user->id)->first();
-            if($vendedor){
-                $vendedor->nombre_usuario = $request->newusername;
-                $vendedor->save();
-            }
-        }
-        
+        return redirect()->route('User.show_user_info')->with(['user' => $user, 'success' => 'Información actualizada!']);
     }
 
     public function show_user_info()

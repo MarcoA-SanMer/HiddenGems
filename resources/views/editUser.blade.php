@@ -2,9 +2,33 @@
     <div class="container">
         <h1 class="my-3">Mi cuenta</h1>
 
-        <h3>Id de usuario para colaboraciones: "{{$user->vendedor->id}}"</h3>
+        @if($user->user_type == "vendedor")
+        <h3>Id de vendedor para colaboraciones: "{{$user->vendedor->id}}"</h3>
         <br>
+        @endif
 
+        <form method="post" action="{{ route('User.edit')}}" class="mb-3">
+            @csrf
+            <div class="form-group">
+            <label for="nombre">Nombre</label><br>
+            <input type="text" name="nombre" id="nombre_U" value="{{$user->name}}" class="form-control" required><br>
+            </div>
+
+            <div class="form-group">
+            <label for="contra">Nueva Contraseña</label><br>
+            <input type="password" name="contra" id="nombre_U" class="form-control" required><br>
+            </div>
+
+            <div class="form-group">
+            <label for="contra">Verificar Contraseña</label><br>
+            <input type="password" name="contra2" id="nombre_U" class="form-control" required>
+            </div>
+
+            <input type="hidden" name="id" value="{{ $user->id }}">
+            <br><br>
+            <button type="submit" class="btn btn-success btn-sm">Modificar</button>
+        </form>
+        <br>
         <form action="{{ route('User.destroy', $user->id) }}" method="POST" class="d-inline">
         @csrf
         @method('DELETE')

@@ -57,23 +57,32 @@
                             @if (Auth::check() && Auth::user()->user_type == 'comprador')
                                 <div class="sb-sidenav-menu-heading">Comprador</div>
                                 <a class="nav-link" href="{{ route('allproducts') }}">
-                                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                    <div class="sb-nav-link-icon"><img src="{{ asset('icons/all.png')}}" width="25px" height="25px"></div>
                                     Todos los Productos
                                 </a>
                                 <a class="nav-link" href="{{ route('historial') }}">
-                                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                    <div class="sb-nav-link-icon"><img src="{{ asset('icons/historial.png')}}" width="25px" height="25px"></i></div>
                                     Historial de Compras
                                 </a>
                             @endif
                             @if (Auth::check() && Auth::user()->user_type == 'vendedor')
                                 <div class="sb-sidenav-menu-heading">Vendedor</div>
                                 <a class="nav-link" href="{{ route('Producto.index') }}">
-                                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                    <div class="sb-nav-link-icon"><img src="{{ asset('icons/nuevo.png')}}" width="25px" height="25px"></div>
                                     Subir Producto
                                 </a>
                                 <a class="nav-link" href="{{ route('misproductos') }}">
-                                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                    <div class="sb-nav-link-icon"><img src="{{ asset('icons/mis_productos.png')}}" width="25px" height="25px"></div>
                                     Mis Productos
+                                </a>
+                                <a class="nav-link" href="{{ route('miscolaboraciones') }}">
+                                    <div class="sb-nav-link-icon"><img src="{{ asset('icons/colaboraciones.png')}}" width="25px" height="25px"></div>
+                                    Colaboraciones
+                                </a>
+
+                                <a class="nav-link" href="{{ route('misventas') }}">
+                                    <div class="sb-nav-link-icon"><img src="{{ asset('icons/ventas.png')}}" width="25px" height="25px"></div>
+                                    Mis ventas
                                 </a>
                             @endif
                             

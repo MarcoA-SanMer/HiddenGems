@@ -72,4 +72,8 @@ class User extends Authenticatable
         return $this->hasOne(Comprador::class);
     }
     
+    //Accesor para obtener siempre el nombre del usuario en mayusculas
+    public function getNameAttribute($value) {
+        return strtoupper($value);
+    }
 }

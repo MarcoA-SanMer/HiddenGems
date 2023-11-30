@@ -22,4 +22,8 @@ class vendedor extends Model
         return $this->belongsToMany(Producto::class);
     }
 
+    public function setNombreUsuarioAttribute($value)
+    {
+        $this->attributes['nombre_usuario'] = strtolower($value);
+    }
 }

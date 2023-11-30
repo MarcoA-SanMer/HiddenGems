@@ -16,9 +16,10 @@ class CompraController extends Controller
      */
     public function index()
     {
-        $productos = Producto::all();
+        //Problema de n+1 resuelto
+        $productos = Producto::with('vendedores')->get();
 
-        return view('pruebaComprarEmail', ['productos' => $productos]);
+        return view('products', ['productos' => $productos]);
     }
 
     /**
