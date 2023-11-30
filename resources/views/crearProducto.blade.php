@@ -33,12 +33,12 @@
 
             <div class="form-group">
                 <label for="precio">Precio:</label>
-                <input type="text" id="precio" name="precio" value="{{ old('precio') }}" class="form-control" required>
+                <input type="number" id="precio" name="precio" value="{{ old('precio') }}" class="form-control" required>
             </div>
 
             <div class="form-group">
                 <label for="descripcion">Descripción:</label>
-                <textarea id="descripcion" name="descripcion" class="form-control">{{ old('descripcion') }}</textarea>
+                <textarea id="descripcion" name="descripcion" class="form-control" required>{{ old('descripcion') }}</textarea>
             </div>
 
             <div class="form-group">

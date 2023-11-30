@@ -26,7 +26,6 @@ class DatabaseSeeder extends Seeder
             }
         });
 
-        // Después de crear todos los vendedores y productos, puedes relacionarlos de manera aleatoria
         $vendedores = \App\Models\vendedor::all();
         $productos = \App\Models\Producto::all();
         
@@ -41,7 +40,6 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        // Ahora que todos los productos han sido creados, puedes crear las compras para cada comprador
         $compradores = \App\Models\Comprador::all();
 
         foreach ($compradores as $comprador) {

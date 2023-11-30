@@ -31,9 +31,9 @@ class ProductoController extends Controller
     public function misColaboraciones()
     {
         $user = auth()->user();
-        $vendedor = $user->vendedor;
-        $productos = $vendedor->productos()->with('vendedores')->get();
-        return view('verColaboraciones', compact('productos'));
+        $vendedorp = $user->vendedor;
+        $productos = $vendedorp->productos()->with('vendedores')->get();
+        return view('verColaboraciones', compact('productos','vendedorp'));
     }
 
     /**

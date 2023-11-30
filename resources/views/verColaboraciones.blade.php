@@ -7,7 +7,7 @@
                     <b>{{$producto->Nombre}} </b> <br>En colaboracion con:
                     <ul>
                     @foreach($producto->vendedores as $vendedor) 
-                            <li>{{$vendedor->nombre_marca}}</li>
+                            <li>{{$vendedor->nombre_marca}} @if($vendedorp->id == $vendedor->id) (tú) @endif</li>
                     @endforeach
                     </ul>
 

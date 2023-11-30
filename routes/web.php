@@ -63,8 +63,9 @@ Route::get('/Admin', function () {
 
 
 
-//Ruta index para vendedores
+//Rutas para productos
 Route::resource('Producto', ProductoController::class)->middleware('checkUserType:vendedor');
+
 Route::post('Producto/colaborate', [ProductoController::class, 'colaborate_show'])->name('Producto.colaborate_s')->middleware('checkUserType:vendedor');
 Route::post('Producto/colaboration', [ProductoController::class, 'colaborate'])->name('Producto.colaborate')->middleware('checkUserType:vendedor');
 //Usuarios
